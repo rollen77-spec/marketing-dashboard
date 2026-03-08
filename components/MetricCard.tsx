@@ -12,38 +12,38 @@ export default function MetricCard({ metric }: MetricCardProps) {
   const showChange = change !== undefined && trend !== undefined;
 
   return (
-    <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
-      <p className="text-sm font-medium text-gray-500">{label}</p>
-      <p className="mt-1 font-heading text-2xl font-semibold text-brand-charcoal">
+    <div className="rounded-lg border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md">
+      <p className="text-sm font-medium text-muted-foreground">{label}</p>
+      <p className="mt-1 text-2xl font-semibold text-card-foreground">
         {value}
       </p>
       {subtitle && (
-        <p className="mt-0.5 text-xs text-gray-400">{subtitle}</p>
+        <p className="mt-0.5 text-xs text-muted-foreground">{subtitle}</p>
       )}
       {showChange && (
         <div className="mt-2 flex items-center gap-1">
           {trend === "up" && (
-            <TrendingUp className="h-4 w-4 text-emerald-500" aria-hidden />
+            <TrendingUp className="h-4 w-4 text-[var(--chart-2)]" aria-hidden />
           )}
           {trend === "down" && (
-            <TrendingDown className="h-4 w-4 text-rose-500" aria-hidden />
+            <TrendingDown className="h-4 w-4 text-destructive" aria-hidden />
           )}
           {trend === "neutral" && (
-            <Minus className="h-4 w-4 text-gray-400" aria-hidden />
+            <Minus className="h-4 w-4 text-muted-foreground" aria-hidden />
           )}
           <span
             className={`text-sm font-medium ${
               trend === "up"
-                ? "text-emerald-600"
+                ? "text-[var(--chart-2)]"
                 : trend === "down"
-                  ? "text-rose-600"
-                  : "text-gray-500"
+                  ? "text-destructive"
+                  : "text-muted-foreground"
             }`}
           >
             {change > 0 ? "+" : ""}
             {change}%
           </span>
-          <span className="text-xs text-gray-400">vs prior period</span>
+          <span className="text-xs text-muted-foreground">vs prior period</span>
         </div>
       )}
     </div>

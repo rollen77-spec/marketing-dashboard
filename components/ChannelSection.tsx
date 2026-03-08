@@ -5,10 +5,10 @@ import ChannelChart from "./ChannelChart";
 import type { ChannelSummary } from "@/lib/sites-data";
 
 const channelColors: Record<string, string> = {
-  website: "#2CADB2",
-  social: "#F59E0B",
-  email: "#1d8f93",
-  search: "#24282B",
+  website: "var(--chart-1)",
+  social: "var(--chart-2)",
+  email: "var(--chart-3)",
+  search: "var(--chart-4)",
 };
 
 interface ChannelSectionProps {
@@ -18,16 +18,16 @@ interface ChannelSectionProps {
 }
 
 export default function ChannelSection({ channel, accentColor }: ChannelSectionProps) {
-  const color = accentColor ?? channelColors[channel.id] ?? "#2CADB2";
+  const color = accentColor ?? channelColors[channel.id] ?? "var(--primary)";
 
   return (
-    <section className="rounded-2xl border border-gray-100 bg-brand-cream/30 p-6 shadow-sm">
+    <section className="rounded-lg border border-border bg-muted/50 p-6 shadow-sm">
       <div className="mb-4">
-        <h2 className="font-heading text-xl font-semibold text-brand-charcoal">
+        <h2 className="text-xl font-semibold text-foreground">
           {channel.name}
         </h2>
         {channel.description && (
-          <p className="mt-1 text-sm text-gray-500">{channel.description}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{channel.description}</p>
         )}
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -36,8 +36,8 @@ export default function ChannelSection({ channel, accentColor }: ChannelSectionP
         ))}
       </div>
       {channel.chartData && channel.chartData.length > 0 && (
-        <div className="mt-6 rounded-xl border border-gray-100 bg-white p-4">
-          <p className="mb-3 text-sm font-medium text-gray-600">Trend (last 4 weeks)</p>
+        <div className="mt-6 rounded-lg border border-border bg-card p-4">
+          <p className="mb-3 text-sm font-medium text-muted-foreground">Trend (last 4 weeks)</p>
           <ChannelChart data={channel.chartData} color={color} />
         </div>
       )}

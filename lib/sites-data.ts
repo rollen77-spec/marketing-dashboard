@@ -184,13 +184,13 @@ export const SITES: SiteConfig[] = [
   {
     id: "hostopia",
     name: "Hostopia",
-    primaryColor: "#2CADB2",
+    primaryColor: "#2e7d32",
     channels: hostopiaChannels,
   },
   {
     id: "other-brand",
     name: "Other Brand",
-    primaryColor: "#6366f1",
+    primaryColor: "#388e3c",
     channels: otherBrandChannels,
   },
 ];
