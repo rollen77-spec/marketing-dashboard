@@ -59,6 +59,7 @@ export default function DashboardContent({ siteId }: DashboardContentProps) {
             key={channel.id}
             channel={channel}
             accentColor={primaryColor}
+            siteId={siteId}
           />
         ))}
       </div>
