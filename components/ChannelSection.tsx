@@ -16,6 +16,7 @@ const channelColors: Record<string, string> = {
 const CHANNEL_DETAIL_ROUTES: Record<string, string> = {
   email: "/channels/email",
   social: "/channels/social",
+  search: "/channels/search",
 };
 
 interface ChannelSectionProps {
