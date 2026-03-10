@@ -12,11 +12,13 @@
   --accent: #c8e6c9;
   --border: #e0d6c9;
   --radius: 0.5rem;
-  --chart-1: #4caf50;
-  --chart-2: #388e3c;
-  --chart-3: #2e7d32;
-  --chart-4: #1b5e20;
-  --chart-5: #0a1f0c;
+  /* Chart palette tuned closer to Hostopia corporate colors:
+     chart-1: primary blue, chart-2: medium gray, others are lighter variants */
+  --chart-1: #2cadb2; /* blue */
+  --chart-2: #97999b; /* medium gray */
+  --chart-3: #c4c5c7; /* light gray */
+  --chart-4: #66c6c3; /* lighter blue-teal accent */
+  --chart-5: #ff8000; /* tertiary orange accent */
   --popover: #f8f5f0;
   --primary: #2e7d32;
   --sidebar: #f0e9e0;

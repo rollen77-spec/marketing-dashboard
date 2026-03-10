@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { BarChart3 } from "lucide-react";
 import { SITES, getSiteById, getDefaultSite } from "@/lib/sites-data";
 import SiteSwitcher from "./SiteSwitcher";
@@ -13,17 +14,30 @@ export default function DashboardContent({ siteId }: DashboardContentProps) {
   const currentSite = (siteId && getSiteById(siteId)) || getDefaultSite();
   const primaryColor = currentSite.primaryColor ?? undefined;
 
+  const isHostopia = currentSite.id === "hostopia";
+
   return (
     <>
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-lg text-primary-foreground"
-              style={{ backgroundColor: primaryColor ?? "var(--primary)" }}
-            >
-              <BarChart3 className="h-5 w-5" />
-            </div>
+          <div className="flex items-center gap-3">
+            {isHostopia ? (
+              <Image
+                src="/hostopia-logo.png"
+                alt="Hostopia"
+                width={160}
+                height={40}
+                className="h-10 w-auto"
+                priority
+              />
+            ) : (
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-lg text-primary-foreground"
+                style={{ backgroundColor: primaryColor ?? "var(--primary)" }}
+              >
+                <BarChart3 className="h-5 w-5" />
+              </div>
+            )}
             <div>
               <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
                 Marketing Dashboard

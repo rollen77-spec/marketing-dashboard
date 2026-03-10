@@ -1,24 +1,46 @@
 "use client";
 
+import { useState } from "react";
 import { Globe } from "lucide-react";
 import MetricCard from "@/components/MetricCard";
 import LineChart from "@/components/LineChart";
 import {
+  WEBSITE_PROPERTIES,
   TRAFFIC_DETAIL_KPIS,
+  TRAFFIC_DETAIL_KPIS_CONNECTS,
   TRAFFIC_BY_DEVICE,
+  TRAFFIC_BY_DEVICE_CONNECTS,
   TRAFFIC_BY_COUNTRY,
+  TRAFFIC_BY_COUNTRY_CONNECTS,
   TOP_PAGES_BY_TRAFFIC,
+  TOP_PAGES_BY_TRAFFIC_CONNECTS,
   TRAFFIC_SOURCES,
+  TRAFFIC_SOURCES_CONNECTS,
   TRAFFIC_SOURCES_OVER_TIME,
   ACTIONS_PER_VISIT,
   SESSIONS_OVER_TIME,
+  SESSIONS_OVER_TIME_CONNECTS,
 } from "@/lib/traffic-detail-data";
+
+type WebsitePropertyId = (typeof WEBSITE_PROPERTIES)[number]["id"];
 
 interface WebsiteTrafficClientProps {
   siteId: string | null;
 }
 
 export default function WebsiteTrafficClient({ siteId }: WebsiteTrafficClientProps) {
+  const [property, setProperty] = useState<WebsitePropertyId>("hostopia-corporate");
+
+  const isHostopia = !siteId || siteId === "hostopia";
+  const isConnectsProperty = property === "hostopia-connects";
+
+  const kpis = isConnectsProperty ? TRAFFIC_DETAIL_KPIS_CONNECTS : TRAFFIC_DETAIL_KPIS;
+  const devices = isConnectsProperty ? TRAFFIC_BY_DEVICE_CONNECTS : TRAFFIC_BY_DEVICE;
+  const countries = isConnectsProperty ? TRAFFIC_BY_COUNTRY_CONNECTS : TRAFFIC_BY_COUNTRY;
+  const topPages = isConnectsProperty ? TOP_PAGES_BY_TRAFFIC_CONNECTS : TOP_PAGES_BY_TRAFFIC;
+  const sources = isConnectsProperty ? TRAFFIC_SOURCES_CONNECTS : TRAFFIC_SOURCES;
+  const sessionsSeries = isConnectsProperty ? SESSIONS_OVER_TIME_CONNECTS : SESSIONS_OVER_TIME;
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -34,13 +56,32 @@ export default function WebsiteTrafficClient({ siteId }: WebsiteTrafficClientPro
             </p>
           </div>
         </div>
+        {isHostopia && (
+          <div className="flex flex-col items-start gap-1 text-sm sm:items-end">
+            <label htmlFor="website-property" className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              Website property
+            </label>
+            <select
+              id="website-property"
+              value={property}
+              onChange={(e) => setProperty(e.target.value as WebsitePropertyId)}
+              className="min-w-[230px] rounded-lg border border-border bg-card px-3 py-1.5 text-sm font-medium text-foreground shadow-sm outline-none ring-offset-background transition-colors focus:border-ring focus:ring-2 focus:ring-ring/20"
+            >
+              {WEBSITE_PROPERTIES.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </header>
 
       {/* Core KPIs */}
       <section className="mb-10 rounded-lg border border-border bg-card p-6 shadow-sm">
         <h2 className="mb-4 text-lg font-semibold text-foreground">Key metrics</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {TRAFFIC_DETAIL_KPIS.map((metric) => (
+          {kpis.map((metric) => (
             <MetricCard key={metric.label} metric={metric} />
           ))}
         </div>
@@ -48,7 +89,7 @@ export default function WebsiteTrafficClient({ siteId }: WebsiteTrafficClientPro
         <div className="mt-6 rounded-lg border border-border bg-background p-4">
           <p className="mb-3 text-sm font-medium text-muted-foreground">Sessions & unique visitors (last 7 days)</p>
           <LineChart
-            data={SESSIONS_OVER_TIME}
+            data={sessionsSeries}
             series={[
               { dataKey: "sessions", name: "Sessions", color: "var(--chart-1)" },
               { dataKey: "uniqueVisitors", name: "Unique visitors", color: "var(--chart-2)" },
@@ -71,7 +112,7 @@ export default function WebsiteTrafficClient({ siteId }: WebsiteTrafficClientPro
               </tr>
             </thead>
             <tbody>
-              {TRAFFIC_BY_DEVICE.map((row) => (
+              {devices.map((row) => (
                 <tr key={row.device} className="border-b border-border/60 last:border-0">
                   <td className="py-2 pr-4 text-foreground">{row.device}</td>
                   <td className="py-2 pr-4 text-right tabular-nums text-foreground">
@@ -101,7 +142,7 @@ export default function WebsiteTrafficClient({ siteId }: WebsiteTrafficClientPro
               </tr>
             </thead>
             <tbody>
-              {TRAFFIC_SOURCES.map((row) => (
+              {sources.map((row) => (
                 <tr key={row.source} className="border-b border-border/60 last:border-0">
                   <td className="py-2 pr-4 text-foreground">{row.source}</td>
                   <td className="py-2 pr-4 text-right tabular-nums text-foreground">
@@ -145,7 +186,7 @@ export default function WebsiteTrafficClient({ siteId }: WebsiteTrafficClientPro
               </tr>
             </thead>
             <tbody>
-              {TOP_PAGES_BY_TRAFFIC.map((row) => (
+              {topPages.map((row) => (
                 <tr key={row.path} className="border-b border-border/60 last:border-0">
                   <td className="py-2 pr-4">
                     <span className="font-medium text-foreground">{row.title}</span>
@@ -180,7 +221,7 @@ export default function WebsiteTrafficClient({ siteId }: WebsiteTrafficClientPro
               </tr>
             </thead>
             <tbody>
-              {TRAFFIC_BY_COUNTRY.map((row) => (
+              {countries.map((row) => (
                 <tr key={row.country} className="border-b border-border/60 last:border-0">
                   <td className="py-2 pr-4 text-foreground">{row.country}</td>
                   <td className="py-2 pr-4 text-right tabular-nums text-foreground">
