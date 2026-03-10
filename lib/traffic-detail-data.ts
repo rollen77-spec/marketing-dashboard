@@ -112,31 +112,6 @@ export const TRAFFIC_SOURCES_OVER_TIME: TrafficSourceTimePoint[] = [
   { date: "Week 4", organic: 12_800, paid: 4_700, direct: 8_400, referral: 3_300, social: 1_750, llm: 820, reviews: 600 },
 ];
 
-// ---------- Play rate (video engagement) ----------
-
-export const VIDEO_PLAY_RATE_KPI: MetricSummary = {
-  label: "Video play rate",
-  value: "24.6%",
-  change: 3.2,
-  trend: "up",
-  subtitle: "Sessions with video play",
-};
-
-export interface VideoEngagementRow {
-  title: string;
-  plays: number;
-  avgWatchTime: string;
-  completionRate: number;
-  playRate: number;
-}
-
-export const TOP_VIDEOS_BY_PLAYS: VideoEngagementRow[] = [
-  { title: "Product overview", plays: 12_400, avgWatchTime: "2m 18s", completionRate: 68, playRate: 31.2 },
-  { title: "How to get started", plays: 8_200, avgWatchTime: "3m 05s", completionRate: 72, playRate: 28.1 },
-  { title: "Customer story", plays: 5_600, avgWatchTime: "4m 12s", completionRate: 58, playRate: 22.4 },
-  { title: "Feature demo", plays: 4_100, avgWatchTime: "1m 45s", completionRate: 75, playRate: 26.0 },
-];
-
 // ---------- Actions per visit ----------
 
 export interface ActionPerVisitRow {

@@ -11,6 +11,7 @@ const channelColors: Record<string, string> = {
   social: "var(--chart-2)",
   email: "var(--chart-3)",
   search: "var(--chart-4)",
+  video: "var(--chart-5)",
 };
 
 const CHANNEL_DETAIL_ROUTES: Record<string, string> = {
@@ -18,6 +19,7 @@ const CHANNEL_DETAIL_ROUTES: Record<string, string> = {
   email: "/channels/email",
   social: "/channels/social",
   search: "/channels/search",
+  video: "/channels/video",
 };
 
 interface ChannelSectionProps {

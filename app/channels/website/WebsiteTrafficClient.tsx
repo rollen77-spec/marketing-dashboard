@@ -10,8 +10,6 @@ import {
   TOP_PAGES_BY_TRAFFIC,
   TRAFFIC_SOURCES,
   TRAFFIC_SOURCES_OVER_TIME,
-  VIDEO_PLAY_RATE_KPI,
-  TOP_VIDEOS_BY_PLAYS,
   ACTIONS_PER_VISIT,
   SESSIONS_OVER_TIME,
 } from "@/lib/traffic-detail-data";
@@ -31,7 +29,7 @@ export default function WebsiteTrafficClient({ siteId }: WebsiteTrafficClientPro
           <div>
             <h1 className="text-2xl font-bold text-foreground sm:text-3xl">Website traffic</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Unique visitors, sessions, traffic by device & country, top pages, sources, video engagement, and actions per visit
+              Unique visitors, sessions, traffic by device & country, top pages, sources, and actions per visit
               {siteId ? ` for ${siteId}` : ""}.
             </p>
           </div>
@@ -192,43 +190,6 @@ export default function WebsiteTrafficClient({ siteId }: WebsiteTrafficClientPro
                     {row.uniqueVisitors.toLocaleString()}
                   </td>
                   <td className="py-2 text-right tabular-nums text-foreground">{row.bounceRate}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* Video engagement (play rate, top videos) */}
-      <section className="mb-10 rounded-lg border border-border bg-card p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-semibold text-foreground">Video engagement</h2>
-        <p className="mb-4 text-sm text-muted-foreground">
-          Play rate (sessions with video play), average watch time, and top videos.
-        </p>
-        <div className="mb-6 max-w-xs">
-          <MetricCard metric={VIDEO_PLAY_RATE_KPI} />
-        </div>
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-left text-sm">
-            <thead className="border-b border-border text-xs uppercase text-muted-foreground">
-              <tr>
-                <th className="py-2 pr-4">Video</th>
-                <th className="py-2 pr-4 text-right">Plays</th>
-                <th className="py-2 pr-4 text-right">Avg. watch time</th>
-                <th className="py-2 pr-4 text-right">Completion rate</th>
-                <th className="py-2 text-right">Play rate</th>
-              </tr>
-            </thead>
-            <tbody>
-              {TOP_VIDEOS_BY_PLAYS.map((row) => (
-                <tr key={row.title} className="border-b border-border/60 last:border-0">
-                  <td className="py-2 pr-4 text-foreground">{row.title}</td>
-                  <td className="py-2 pr-4 text-right tabular-nums text-foreground">
-                    {row.plays.toLocaleString()}
-                  </td>
-                  <td className="py-2 pr-4 text-right tabular-nums text-foreground">{row.avgWatchTime}</td>
-                  <td className="py-2 pr-4 text-right tabular-nums text-foreground">{row.completionRate}%</td>
-                  <td className="py-2 text-right tabular-nums text-foreground">{row.playRate}%</td>
                 </tr>
               ))}
             </tbody>

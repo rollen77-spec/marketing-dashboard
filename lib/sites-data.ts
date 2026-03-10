@@ -105,6 +105,23 @@ const hostopiaChannels: ChannelSummary[] = [
       { date: "Week 4", value: 7700 },
     ],
   },
+  {
+    id: "video",
+    name: "Video",
+    description: "Play rate, watch time, and top videos",
+    metrics: [
+      { label: "Play rate", value: "24.6%", change: 3.2, trend: "up", subtitle: "Sessions with video play" },
+      { label: "Video plays", value: "30.5K", change: 8.1, trend: "up", subtitle: "Last 30 days" },
+      { label: "Avg. watch time", value: "2m 18s", change: 5.0, trend: "up" },
+      { label: "Completion rate", value: "68%", change: 2.4, trend: "up" },
+    ],
+    chartData: [
+      { date: "Week 1", value: 6800 },
+      { date: "Week 2", value: 7200 },
+      { date: "Week 3", value: 7900 },
+      { date: "Week 4", value: 8600 },
+    ],
+  },
 ];
 
 // ——— Second brand (rename and replace with your other site's data) ———
@@ -175,6 +192,23 @@ const otherBrandChannels: ChannelSummary[] = [
       { date: "Week 2", value: 3100 },
       { date: "Week 3", value: 3300 },
       { date: "Week 4", value: 3300 },
+    ],
+  },
+  {
+    id: "video",
+    name: "Video",
+    description: "Play rate, watch time, and top videos",
+    metrics: [
+      { label: "Play rate", value: "18.2%", change: 1.8, trend: "up", subtitle: "Sessions with video play" },
+      { label: "Video plays", value: "12.4K", change: 4.2, trend: "up", subtitle: "Last 30 days" },
+      { label: "Avg. watch time", value: "1m 52s", change: 2.1, trend: "up" },
+      { label: "Completion rate", value: "62%", change: 1.0, trend: "up" },
+    ],
+    chartData: [
+      { date: "Week 1", value: 2800 },
+      { date: "Week 2", value: 3000 },
+      { date: "Week 3", value: 3200 },
+      { date: "Week 4", value: 3400 },
     ],
   },
 ];
