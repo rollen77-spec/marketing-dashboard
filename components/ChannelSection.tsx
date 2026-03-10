@@ -1,17 +1,54 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Sparkles } from "lucide-react";
 import MetricCard from "./MetricCard";
 import ChannelChart from "./ChannelChart";
 import type { ChannelSummary } from "@/lib/sites-data";
 
-const channelColors: Record<string, string> = {
-  website: "var(--chart-1)",
-  social: "var(--chart-2)",
-  email: "var(--chart-3)",
-  search: "var(--chart-4)",
-  video: "var(--chart-5)",
+const CHART_COLOR = "#2CADB2";
+
+const AI_SUMMARIES: Record<string, { summary: string; nextSteps: string[] }> = {
+  website: {
+    summary: "Traffic is up over the last 4 weeks with strong session growth. Bounce rate is trending down, which suggests better relevance and engagement. Mobile and desktop are both contributing; consider deepening mobile experience if conversion rates differ by device.",
+    nextSteps: [
+      "Review top exit pages and add clear CTAs or content upgrades.",
+      "A/B test landing pages for paid and organic to improve conversion rate.",
+      "Segment traffic by device and country in GA4 to prioritise high-intent regions.",
+    ],
+  },
+  social: {
+    summary: "Reach and engagements are growing. Engagement rate is healthy; follower growth is steady. Content mix is driving impressions—identify which formats (video, carousel, story) drive the most saves and shares to double down.",
+    nextSteps: [
+      "Post consistently on top-performing platforms and replicate best-performing formats.",
+      "Respond to comments and DMs to boost engagement and loyalty.",
+      "Run a short paid test to amplify best organic posts and grow followers.",
+    ],
+  },
+  email: {
+    summary: "Open rates are stable with a slight dip in click rate. Deliverability looks good (low bounce). List growth and retention are key—focus on valuable content and segmenting so sends feel personal.",
+    nextSteps: [
+      "Segment by engagement (openers vs non-openers) and tailor frequency and content.",
+      "Test subject lines and send times with small segments before full sends.",
+      "Add a preference centre so subscribers choose topics and frequency.",
+    ],
+  },
+  search: {
+    summary: "Organic clicks and impressions are up; average position is improving. CTR has room to grow—titles and meta descriptions can be optimised for both relevance and appeal. Paid and organic together are driving strong volume.",
+    nextSteps: [
+      "Refresh title and meta description for top pages with high impressions and low CTR.",
+      "Align organic and paid keyword themes and landing pages for a consistent journey.",
+      "Track query trends in GSC and create or update content for rising topics.",
+    ],
+  },
+  video: {
+    summary: "Video play rate and completion are solid. Views are concentrated on a few key pieces—use those as templates for length, hook, and CTA placement. Average watch time suggests viewers stay when the value is clear early.",
+    nextSteps: [
+      "Repurpose top videos into shorts and clips for social and ads.",
+      "Add clear CTAs in the first 30 seconds and again before the end card.",
+      "Test thumbnails and titles to improve click-through from browse and search.",
+    ],
+  },
 };
 
 const CHANNEL_DETAIL_ROUTES: Record<string, string> = {
@@ -31,7 +68,7 @@ interface ChannelSectionProps {
 }
 
 export default function ChannelSection({ channel, accentColor, siteId }: ChannelSectionProps) {
-  const color = accentColor ?? channelColors[channel.id] ?? "var(--primary)";
+  const color = CHART_COLOR;
   const detailHref = CHANNEL_DETAIL_ROUTES[channel.id]
     ? `${CHANNEL_DETAIL_ROUTES[channel.id]}${siteId ? `?site=${encodeURIComponent(siteId)}` : ""}`
     : null;
@@ -66,6 +103,28 @@ export default function ChannelSection({ channel, accentColor, siteId }: Channel
         <div className="mt-6 rounded-lg border border-border bg-card p-4">
           <p className="mb-3 text-sm font-medium text-muted-foreground">Trend (last 4 weeks)</p>
           <ChannelChart data={channel.chartData} color={color} />
+        </div>
+      )}
+
+      {AI_SUMMARIES[channel.id] && (
+        <div className="mt-6 rounded-lg border border-border bg-card p-4">
+          <div className="mb-3 flex items-center gap-2 text-sm font-medium text-foreground">
+            <Sparkles className="h-4 w-4 text-[#2CADB2]" aria-hidden />
+            AI summary
+          </div>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {AI_SUMMARIES[channel.id].summary}
+          </p>
+          <div className="mt-4">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Next steps to improve performance
+            </p>
+            <ul className="list-inside list-disc space-y-1 text-sm text-muted-foreground">
+              {AI_SUMMARIES[channel.id].nextSteps.map((step, i) => (
+                <li key={i}>{step}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
     </section>

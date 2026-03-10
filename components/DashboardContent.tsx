@@ -18,37 +18,35 @@ export default function DashboardContent({ siteId }: DashboardContentProps) {
 
   return (
     <>
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
-            {isHostopia ? (
-              <Image
-                src="/hostopia-logo.png"
-                alt="Hostopia"
-                width={160}
-                height={40}
-                className="h-10 w-auto"
-                priority
-              />
-            ) : (
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-lg text-primary-foreground"
-                style={{ backgroundColor: primaryColor ?? "var(--primary)" }}
-              >
-                <BarChart3 className="h-5 w-5" />
-              </div>
-            )}
-            <div>
-              <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
-                Marketing Dashboard
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                Compare performance across your sites — share this link with your team
-              </p>
+      <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-[auto_1fr_auto] sm:items-center">
+        <div className="flex justify-center sm:justify-start">
+          {isHostopia ? (
+            <Image
+              src="/hostopia-logo.png"
+              alt="Hostopia"
+              width={160}
+              height={40}
+              className="h-10 w-auto"
+              priority
+            />
+          ) : (
+            <div
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-primary-foreground"
+              style={{ backgroundColor: primaryColor ?? "var(--primary)" }}
+            >
+              <BarChart3 className="h-5 w-5" />
             </div>
-          </div>
+          )}
         </div>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col items-center justify-center text-center">
+          <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
+            Marketing Dashboard
+          </h1>
+          <p className="mt-2 max-w-md text-sm text-muted-foreground">
+            Compare performance across your sites — share this link with your team
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-end">
           <SiteSwitcher sites={SITES} currentSite={currentSite} />
           <span className="text-sm text-muted-foreground">
             Last updated: {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
