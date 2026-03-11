@@ -32,6 +32,8 @@ export interface SiteConfig {
   name: string;
   /** Optional hex color for charts/badges (e.g. #2CADB2) */
   primaryColor?: string;
+  /** Optional logo path in /public (e.g. "/hostopia-logo.png") */
+  logoSrc?: string;
   channels: ChannelSummary[];
 }
 
@@ -219,6 +221,7 @@ export const SITES: SiteConfig[] = [
     id: "hostopia",
     name: "Hostopia",
     primaryColor: "#2CADB2",
+    logoSrc: "/hostopia-logo.png",
     channels: hostopiaChannels,
   },
   {

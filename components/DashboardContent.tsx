@@ -14,30 +14,10 @@ export default function DashboardContent({ siteId }: DashboardContentProps) {
   const currentSite = (siteId && getSiteById(siteId)) || getDefaultSite();
   const primaryColor = currentSite.primaryColor ?? undefined;
 
-  const isHostopia = currentSite.id === "hostopia";
-
   return (
     <>
       <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-[auto_1fr_auto] sm:items-center">
-        <div className="flex justify-center sm:justify-start">
-          {isHostopia ? (
-            <Image
-              src="/hostopia-logo.png"
-              alt="Hostopia"
-              width={160}
-              height={40}
-              className="h-10 w-auto"
-              priority
-            />
-          ) : (
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-lg text-primary-foreground"
-              style={{ backgroundColor: primaryColor ?? "var(--primary)" }}
-            >
-              <BarChart3 className="h-5 w-5" />
-            </div>
-          )}
-        </div>
+        <div className="hidden sm:block" aria-hidden="true" />
         <div className="flex flex-col items-center justify-center text-center">
           <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
             Marketing Dashboard
@@ -54,15 +34,28 @@ export default function DashboardContent({ siteId }: DashboardContentProps) {
         </div>
       </div>
 
-      <div className="mb-4 flex items-center gap-2">
-        <span
-          className="inline-block h-3 w-3 rounded-full"
-          style={{ backgroundColor: primaryColor }}
-          aria-hidden
-        />
-        <h2 className="text-lg font-semibold text-foreground">
-          {currentSite.name}
-        </h2>
+      <div className="mb-4 flex items-center gap-3">
+        {currentSite.logoSrc ? (
+          <Image
+            src={currentSite.logoSrc}
+            alt={currentSite.name}
+            width={160}
+            height={40}
+            className="h-8 w-auto"
+            priority
+          />
+        ) : (
+          <>
+            <span
+              className="inline-block h-3 w-3 rounded-full"
+              style={{ backgroundColor: primaryColor }}
+              aria-hidden
+            />
+            <h2 className="text-lg font-semibold text-foreground">
+              {currentSite.name}
+            </h2>
+          </>
+        )}
       </div>
 
       <div className="space-y-8">
